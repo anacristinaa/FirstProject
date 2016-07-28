@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/util  
+     http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	
+	<bean id="intern1" class="any.artsoft.controller.LoginBean">
+		<property name="userName" value="any" />
+		<property name="password" value="any" />
+		<property name="age" value="22" />
+	</bean>
+
+	<bean id="intern2" class="any.artsoft.controller.LoginBean">
+		<property name="userName" value="raluca" />
+		<property name="password" value="parola" />
+		<property name="age" value="22" />
+	</bean>
+
+	<bean id="intern3" class="any.artsoft.controller.LoginBean">
+		<property name="userName" value="sorina" />
+		<property name="password" value="valentina" />
+		<property name="age" value="23" />
+	</bean>
+
+		<util:list id="interns" value-type="any.artsoft.controller.LoginBean">
+
+			<ref bean="intern1" />
+			<ref bean="intern2" />
+			<ref bean="intern3" />
+
+		</util:list> 
+		
+</beans>
