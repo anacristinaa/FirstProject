@@ -1,4 +1,3 @@
-
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
@@ -29,6 +28,7 @@
         <beans:property name="prefix" value="/WEB-INF/views/" />
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
+    
     
     <!-- Initialization for TransactionManager -->
 	<beans:bean id="transactionManager"

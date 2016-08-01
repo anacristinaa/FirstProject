@@ -2,9 +2,9 @@ package any.artsoft.dao;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.sql.DataSource;
-
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +18,16 @@ public class UsersDaoImpl implements UserDaoInterface {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	protected Session getSession() {
+		return sessionFactory.openSession();
+	}
 
 	@Autowired
 	public void setDataSource(DataSource ds) {
@@ -43,10 +53,21 @@ public class UsersDaoImpl implements UserDaoInterface {
 	}
 
 	@Override
-	public void updateLastAction(String username) {
+	public void updateLastAction(User user) {
 		Date lastaction = new Date();
-		String sql = "update users set lastaction = ? where username = ?";
-		jdbcTemplate.update(sql, lastaction, username);
+		/*String sql = "update users set lastaction = ? where username = ?";
+		jdbcTemplate.update(sql, lastaction, username);*/
+		
+		Session session = this.getSession();
+		session.beginTransaction();
+		User userUpdate = session.get(User.class, user.getUser_id());
+		userUpdate.setEnabled(true);
+		userUpdate.setLastaction(lastaction);
+		userUpdate.setPassword(user.getPassword());
+		userUpdate.setUsername(user.getUsername());
+		session.update(userUpdate);
+		session.getTransaction().commit();
+		session.close();
 
 	}
 
@@ -71,11 +92,11 @@ public class UsersDaoImpl implements UserDaoInterface {
 		return products;
 	}
 
-	public void registerUserRole(User user){
+	public void registerUserRole(User user) {
 		String role = "ROLE_USER";
 		String sql = "insert into user_roles (user_id,role) values (?, ?)";
-		jdbcTemplate.update(sql,user.getUser_id(),role);
-				
+		jdbcTemplate.update(sql, user.getUser_id(), role);
+
 	}
 
 	private String generateHashedPassword(String password) {
@@ -84,6 +105,5 @@ public class UsersDaoImpl implements UserDaoInterface {
 		System.out.println("Password: " + password + " Hashed: " + hashedPassword);
 		return hashedPassword;
 	}
-		
 
 }

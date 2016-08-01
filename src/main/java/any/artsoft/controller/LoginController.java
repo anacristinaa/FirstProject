@@ -32,6 +32,10 @@ public class LoginController {
 
 	}
 	
+	/**
+	 * this method shows the page after the user logs in, depending on his role
+	 * @return model 
+	 */
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 

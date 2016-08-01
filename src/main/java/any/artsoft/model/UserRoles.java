@@ -1,7 +1,17 @@
 package any.artsoft.model;
 
-public class UserRoles {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "user_roles")
+public class UserRoles implements Serializable  {
+
+	@Id
 	private int user_role_id;
 	private int user_id;
 	private String role;

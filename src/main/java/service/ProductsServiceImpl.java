@@ -27,10 +27,11 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 
 		
 			User user = daoUser.getUserByUsername(username);
-			daoUser.updateLastAction(username);
+			daoUser.updateLastAction(user);
 			daoProduct.create(product.getName(), product.getDescription(), product.getPrice(), user.getUser_id());
 			
 	}
+	
 
 	@Override
 	public Product getProductById(int product_id) {
@@ -44,7 +45,8 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 	@Transactional(rollbackFor = Exception.class)
 	public void updateProduct(Product product, String username) {
 
-			daoUser.updateLastAction(username);
+		User user = daoUser.getUserByUsername(username);
+		daoUser.updateLastAction(user);
 			daoProduct.update(product);
 
 	}
@@ -54,8 +56,10 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 	public void deleteProduct(int product_id, String username) {
 
 			daoProduct.delete(product_id);
-			daoUser.updateLastAction(username);
+			User user = daoUser.getUserByUsername(username);
+			daoUser.updateLastAction(user);
 			
 	}
+
 
 }

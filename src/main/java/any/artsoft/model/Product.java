@@ -1,13 +1,20 @@
 package any.artsoft.model;
 
-public class Product {
+import java.io.Serializable;
+import javax.persistence.*;
 
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "products")
+public class Product implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int product_id;
 	private String name;
 	private String description;
 	private int price;
 	private int user_id;
-	
 	
 	public int getProduct_id() {
 		return product_id;

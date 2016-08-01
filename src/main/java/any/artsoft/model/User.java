@@ -1,9 +1,17 @@
 package any.artsoft.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+import javax.persistence.*;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
 	
+	@Id
+	@GeneratedValue
 	private int user_id;
 	private String username;
 	private String password;
