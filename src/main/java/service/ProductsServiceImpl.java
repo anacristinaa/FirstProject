@@ -2,7 +2,6 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import any.artsoft.dao.ProductsDaoImpl;
 import any.artsoft.dao.UsersDaoImpl;
@@ -18,20 +17,15 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 	@Autowired
 	UsersDaoImpl daoUser;
 
-	@Autowired
-	PlatformTransactionManager transactionManager;
-
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void addProduct(Product product, String username) {
 
-		
-			User user = daoUser.getUserByUsername(username);
-			daoUser.updateLastAction(user);
-			daoProduct.create(product.getName(), product.getDescription(), product.getPrice(), user.getUser_id());
-			
+		User user = daoUser.getUserByUsername(username);
+		daoUser.updateLastAction(user);
+		daoProduct.create(product.getName(), product.getDescription(), product.getPrice(), user);
+
 	}
-	
 
 	@Override
 	public Product getProductById(int product_id) {
@@ -47,7 +41,7 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 
 		User user = daoUser.getUserByUsername(username);
 		daoUser.updateLastAction(user);
-			daoProduct.update(product);
+		daoProduct.update(product);
 
 	}
 
@@ -55,11 +49,10 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteProduct(int product_id, String username) {
 
-			daoProduct.delete(product_id);
-			User user = daoUser.getUserByUsername(username);
-			daoUser.updateLastAction(user);
-			
-	}
+		daoProduct.delete(product_id);
+		User user = daoUser.getUserByUsername(username);
+		daoUser.updateLastAction(user);
 
+	}
 
 }

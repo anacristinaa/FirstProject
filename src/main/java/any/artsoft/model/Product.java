@@ -11,10 +11,19 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int product_id;
+	
+	@Column
 	private String name;
+
+	@Column
 	private String description;
+	
+	@Column
 	private int price;
-	private int user_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	public int getProduct_id() {
 		return product_id;
@@ -40,19 +49,20 @@ public class Product implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getUser_id() {
-		return user_id;
+	
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public String toString(){
 		return "ID " + this.product_id + 
 				" " + this.name + 
 				" " + this.description + 
-				" " + this.price + 
-				" " + this.user_id;
+				" " + this.price;
 	}
 	
 }

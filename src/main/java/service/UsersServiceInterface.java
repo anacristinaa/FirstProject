@@ -7,9 +7,9 @@ import any.artsoft.model.User;
 
 public interface UsersServiceInterface {
 	
-	public List<Product> ckeckUserRole(String username, String role);
+	public List<Product> ckeckUserRole(User user, String role);
 	public User getUser(String username);
-	public void registerUser(User user);
+	public void registerUser(String username,String password);
 	
 
 }

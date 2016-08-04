@@ -8,31 +8,31 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import any.artsoft.model.Product;
+import any.artsoft.model.User;
 
 @SuppressWarnings("deprecation")
+@Transactional(readOnly=true)
 @Repository
 public class ProductsDaoImpl implements ProductsDaoInterface {
 
-	private SessionFactory sessionFactory;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	private SessionFactory sessionFactory;
 
 	protected Session getSession() {
 		return sessionFactory.openSession();
 	}
 
 	@Override
-	public void create(String name, String description, int price, int user_id) {
+	public void create(String name, String description, int price, User user) {
 
 		Product product = new Product();
 		product.setName(name);
 		product.setDescription(description);
 		product.setPrice(price);
-		product.setUser_id(user_id);
+		product.setUser(user);
 
 		Session session =  this.getSession();
 		session.beginTransaction();
@@ -46,12 +46,14 @@ public class ProductsDaoImpl implements ProductsDaoInterface {
 	@Override
 	public Product getProduct(int product_id) {
 		
-		Session session = sessionFactory.openSession();
+		Session session = getSession();
+		session.beginTransaction();
 		String SQL_QUERY = " from Product  where product_id=? ";
 		Query<Product> query = session.createQuery(SQL_QUERY);
 		query.setParameter(0, product_id);
 		Product product = query.uniqueResult();
 		System.out.println("Get product: " + product.toString());
+		session.getTransaction().commit();
 		session.close();
 		return product;
 	}

@@ -43,10 +43,10 @@
 					name="price" value=" ${product.getPrice() }">
 				<br />
 				<br />
-				Id user: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"
-					name="user_id" value=" ${product.getUser_id() }" readonly>
+				<%-- Id user: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"
+					name="user_id" value=" ${product.getUser().getUser_id()}" readonly>
 				<br />
-				<br />
+				<br /> --%>
 
 				<input type="submit" class="btn btn-default" value="Update" />
 			</form:form>

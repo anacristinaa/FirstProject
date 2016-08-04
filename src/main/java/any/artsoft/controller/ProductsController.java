@@ -41,7 +41,7 @@ public class ProductsController {
 	}
 
 	@RequestMapping(value = "success/edit/{product_id}", method = RequestMethod.GET)
-	public ModelAndView editProduct(@PathVariable("product_id") int product_id) {
+	public ModelAndView editProduct(@PathVariable("product_id") int product_id  ) {
 
 		Product product = productService.getProductById(product_id);
 		System.out.println("IDDD: " + product.toString());

@@ -1,8 +1,9 @@
 package any.artsoft.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,9 +13,13 @@ import javax.persistence.Table;
 public class UserRoles implements Serializable  {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int user_role_id;
 	private int user_id;
 	private String role;
+	
+	/*@OneToMany
+	private List<User> users;*/
 	
 	public int getUser_role_id() {
 		return user_role_id;

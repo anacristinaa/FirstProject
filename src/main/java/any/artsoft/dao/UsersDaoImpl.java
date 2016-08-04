@@ -2,62 +2,68 @@ package any.artsoft.dao;
 
 import java.util.Date;
 import java.util.List;
-import javax.sql.DataSource;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import any.artsoft.model.Product;
 import any.artsoft.model.User;
+import any.artsoft.model.UserRoles;
 
+@SuppressWarnings("deprecation")
 @Repository
+@Transactional(readOnly=true)
 public class UsersDaoImpl implements UserDaoInterface {
 
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate;
-
+	@Autowired
 	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	protected Session getSession() {
 		return sessionFactory.openSession();
 	}
 
-	@Autowired
-	public void setDataSource(DataSource ds) {
-		this.dataSource = ds;
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
-	}
-
 	@Override
-	public void register(String username, String password) {
+	public User register(String username, String password) {
+		
+		Session session = this.getSession();
+		session.beginTransaction();		
+		User user = new User();
 		String hashedPass = this.generateHashedPassword(password);
 		Date date = new Date();
-		String sql = "insert into users (username, password, enabled,lastaction) values (?, ?, ?, ?)";
-		jdbcTemplate.update(sql, username, hashedPass, true, date);
+		user.setUsername(username);
+		user.setPassword(hashedPass);
+		user.setLastaction(date);
+		user.setEnabled(true);
+		session.save(user);
+		session.getTransaction().commit();
+		session.close();
+ 
+		return user;
 	}
 
 	@Override
 	public User getUser(int user_id) {
-		String sql = "select * from users where user_id = ?";
-		User user = jdbcTemplate.queryForObject(sql, new Object[] { user_id }, new UserMapper());
-
+		
+		Session session = getSession();
+		session.beginTransaction();
+		User user = session.get(User.class, user_id);
+		System.out.println("User by ID: " + user.toString());
+		session.getTransaction().commit();
+		session.close();
 		return user;
 	}
 
 	@Override
 	public void updateLastAction(User user) {
 		Date lastaction = new Date();
-		/*String sql = "update users set lastaction = ? where username = ?";
-		jdbcTemplate.update(sql, lastaction, username);*/
-		
+
 		Session session = this.getSession();
 		session.beginTransaction();
 		User userUpdate = session.get(User.class, user.getUser_id());
@@ -71,31 +77,62 @@ public class UsersDaoImpl implements UserDaoInterface {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsers() {
-		String sql = "select * from users";
-		List<User> users = jdbcTemplate.query(sql, new UserMapper());
+		
+		Session session = this.getSession();
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(User.class);
+		List<User> users = cr.list();
+		session.getTransaction().commit();
+		session.close();
 		return users;
 	}
 
+
 	@Override
 	public User getUserByUsername(String username) {
-		String sql = "select * from users where username = ?";
-		User user = jdbcTemplate.queryForObject(sql, new Object[] { username }, new UserMapper());
+
+		Session session = getSession();
+		session.beginTransaction();		
+		Criteria criteria = getSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		User user = (User) criteria.uniqueResult();			
+		session.getTransaction().commit();
+		session.close();
+	
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getUsersProduct(int user_id) {
-		String sql = "select * from products where user_id = ?";
-		List<Product> products = jdbcTemplate.query(sql, new Object[] { user_id }, new ProductMapper());
+		
+		Session session = getSession();
+		session.beginTransaction();
+		String SQL_QUERY = " from Product  where user_id = ? ";
+		Query<Product> query = session.createQuery(SQL_QUERY);
+		query.setParameter(0, user_id);
+		List<Product> products = query.list();
+		session.getTransaction().commit();
+		session.close();
+		
 		return products;
 	}
 
-	public void registerUserRole(User user) {
+	public void registerUserRole(User user1) {
+		
+		Session session = this.getSession();
+		session.beginTransaction();
 		String role = "ROLE_USER";
-		String sql = "insert into user_roles (user_id,role) values (?, ?)";
-		jdbcTemplate.update(sql, user.getUser_id(), role);
+		User user = (User) session.merge(user1);
+		UserRoles userUpdate = new UserRoles();
+		userUpdate.setUser_id(user.getUser_id());
+		userUpdate.setRole(role);
+		session.save(userUpdate);
+		session.getTransaction().commit();
+		session.close();
 
 	}
 

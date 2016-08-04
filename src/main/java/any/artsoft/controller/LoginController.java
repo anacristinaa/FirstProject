@@ -48,11 +48,13 @@ public class LoginController {
 		}
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("Name: " + username);
 		User user = new User();
 		List<Product> products = new ArrayList<Product>();
 		try{
 			user = userService.getUser(username);
-			products = userService.ckeckUserRole(username, role);
+			System.out.println("User logged: " + user.toString());
+			products = userService.ckeckUserRole(user, role);
 			
 		}catch(RuntimeException e) {
 			e.printStackTrace();
@@ -101,8 +103,9 @@ public class LoginController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView registerUserPage(@ModelAttribute User user) {
 
+		System.out.println("Username + pass : " + user.getUsername() + " " + user.getPassword() );
 		try{
-			userService.registerUser(user);
+			userService.registerUser( user.getUsername(),user.getPassword());
 		}catch(RuntimeException e) {
 			e.printStackTrace();
 			

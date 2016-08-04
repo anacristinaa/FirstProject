@@ -61,7 +61,7 @@
 				<td><c:out value="${prod.getPrice() }" />
 					<p></td>
 				<td>
-				<c:if test ="${prod.getUser_id() == user_id }">
+				<c:if test ="${prod.getUser().getUser_id() == user_id }">
 				<a href="success/edit/${prod.product_id}" style="color:white">Edit</a> &nbsp; | &nbsp;
 					<a href="success/${prod.product_id}"  style="color:black"> Delete </a> </c:if> </td>
 			</tr>
