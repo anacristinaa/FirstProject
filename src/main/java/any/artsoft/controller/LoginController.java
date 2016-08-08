@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import any.artsoft.model.Product;
-import any.artsoft.model.User;
+
+import any.artsoft.dto.ProductDTO;
+import any.artsoft.dto.UserDTO;
 import service.UsersServiceImpl;
 
 @Controller
 public class LoginController {
-	 
-	 @Autowired
-	 UsersServiceImpl userService;
-	
-	
+
+	@Autowired
+	UsersServiceImpl userService;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
@@ -31,10 +31,11 @@ public class LoginController {
 		return model;
 
 	}
-	
+
 	/**
 	 * this method shows the page after the user logs in, depending on his role
-	 * @return model 
+	 * 
+	 * @return model
 	 */
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
@@ -48,30 +49,28 @@ public class LoginController {
 		}
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println("Name: " + username);
-		User user = new User();
-		List<Product> products = new ArrayList<Product>();
-		try{
-			user = userService.getUser(username);
-			System.out.println("User logged: " + user.toString());
-			products = userService.ckeckUserRole(user, role);
-			
-		}catch(RuntimeException e) {
+		UserDTO userDTO = new UserDTO();
+		List<ProductDTO> products = new ArrayList<ProductDTO>();
+		try {
+			userDTO = userService.getUser(username);
+			products = userService.ckeckUserRole(userDTO, role);
+
+		} catch (RuntimeException e) {
 			e.printStackTrace();
-			
+
 		}
-		
+
 		model.addObject("listsize", products.size());
 		model.addObject("products", products);
-		model.addObject("user_id", user.getUser_id());
-		model.addObject("lastaction", user.getLastaction());
+		model.addObject("user_id", userDTO.getUser_id());
+		model.addObject("lastaction", userDTO.getLastaction());
 		model.addObject("role", role);
 		model.setViewName("success");
 
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -84,13 +83,13 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
-		
+
 		model.setViewName("login");
 
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerPage() {
 
@@ -99,23 +98,21 @@ public class LoginController {
 		return model;
 
 	}
-	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerUserPage(@ModelAttribute User user) {
 
-		System.out.println("Username + pass : " + user.getUsername() + " " + user.getPassword() );
-		try{
-			userService.registerUser( user.getUsername(),user.getPassword());
-		}catch(RuntimeException e) {
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView registerUserPage(@ModelAttribute UserDTO userDTO) {
+
+		try {
+			userService.registerUser(userDTO.getUsername(), userDTO.getPassword());
+		} catch (RuntimeException e) {
 			e.printStackTrace();
-			
+
 		}
-		
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName("redirect:/");
 		return model;
 
 	}
-	
 
 }

@@ -1,11 +1,16 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import any.artsoft.converter.ConvertModelToDto;
 import any.artsoft.dao.ProductsDaoImpl;
 import any.artsoft.dao.UsersDaoImpl;
+import any.artsoft.dto.ProductDTO;
+import any.artsoft.dto.UserDTO;
 import any.artsoft.model.Product;
 import any.artsoft.model.User;
 
@@ -20,28 +25,38 @@ public class UsersServiceImpl implements UsersServiceInterface {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public List<Product> ckeckUserRole(User user, String role) {
+	public List<ProductDTO> ckeckUserRole(UserDTO userDTO, String role) {
 
 		String rol = "ROLE_ADMIN";
 		List<Product> products;
+		List<ProductDTO> productsDTO = new ArrayList<ProductDTO>(); 
 
 		if (role.equals(rol)) {
 			products = daoProduct.listProducts();
 
 		} else {
+			User user = ConvertModelToDto.convertDtoToUser(userDTO);
 			products = user.getProducts();
-
 		}
 
-		return products;
+		try{
+			productsDTO = ConvertModelToDto.convertEntityListToDtoList(products);
+		}catch(NullPointerException e){
+			System.out.println("Caught the NullPointerException! The User has no products!");
+		}
+		
+				
+		return productsDTO;
 
 	}
 
 	@Override
-	public User getUser(String username) {
-
+	public UserDTO getUser(String username) {
+		
 		User user = daoUser.getUserByUsername(username);
-		return user;
+		UserDTO userDTO = ConvertModelToDto.convertUserToDto(user);
+		System.out.println("Get userDTO: " + userDTO.toString());
+		return userDTO;
 	}
 
 	@Override

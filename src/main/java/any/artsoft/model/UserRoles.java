@@ -18,9 +18,6 @@ public class UserRoles implements Serializable  {
 	private int user_id;
 	private String role;
 	
-	/*@OneToMany
-	private List<User> users;*/
-	
 	public int getUser_role_id() {
 		return user_role_id;
 	}

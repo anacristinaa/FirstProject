@@ -21,7 +21,7 @@
 	<div class="addpr">
 	<center>
 		<h1>&nbsp; &nbsp; &nbsp; Add Product</h1>
-		<form:form action="addProduct" method="post" modelAttribute="product">
+		<form:form action="addProduct" method="post" modelAttribute="productDTO">
 
 			<br />
          	<p style="font-size:130%;">	Name:  &nbsp;  &nbsp;  &nbsp;  &nbsp; <input type="text" name="name">

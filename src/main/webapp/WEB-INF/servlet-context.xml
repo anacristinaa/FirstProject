@@ -44,7 +44,7 @@
 	</beans:bean>
 	
 	<context:component-scan
-		base-package="any.artsoft.controller, service, any.artsoft.dao" />
+		base-package="any.artsoft.controller, service, any.artsoft.dao, any.artsoft.dto, any.artsoft.converter" />
 
 </beans:beans>
 

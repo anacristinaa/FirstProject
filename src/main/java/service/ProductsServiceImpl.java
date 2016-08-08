@@ -3,8 +3,12 @@ package service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import any.artsoft.converter.ConvertModelToDto;
 import any.artsoft.dao.ProductsDaoImpl;
 import any.artsoft.dao.UsersDaoImpl;
+import any.artsoft.dto.ProductDTO;
+import any.artsoft.dto.UserDTO;
 import any.artsoft.model.Product;
 import any.artsoft.model.User;
 
@@ -19,28 +23,35 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void addProduct(Product product, String username) {
+	public void addProduct(ProductDTO productDTO, String username) {
 
+		System.out.println("ProductDTO in add: " + productDTO.toString());
 		User user = daoUser.getUserByUsername(username);
 		daoUser.updateLastAction(user);
+		Product product = ConvertModelToDto.convertDtoToProduct(productDTO,user);
+		System.out.println("Product converted in add: " + product.toString());
 		daoProduct.create(product.getName(), product.getDescription(), product.getPrice(), user);
 
 	}
 
 	@Override
-	public Product getProductById(int product_id) {
+	public ProductDTO getProductById(int product_id) {
 
 		Product product = daoProduct.getProduct(product_id);
-		return product;
+		User user = daoUser.getUser(product.getUser().getUser_id());
+		UserDTO uDTO = ConvertModelToDto.convertUserToDto(user);
+		ProductDTO prodDTO = ConvertModelToDto.convertProductToDto(product,uDTO);
+		return prodDTO;
 
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void updateProduct(Product product, String username) {
+	public void updateProduct(ProductDTO productDTO, String username) {
 
 		User user = daoUser.getUserByUsername(username);
 		daoUser.updateLastAction(user);
+		Product product = ConvertModelToDto.convertDtoToProduct(productDTO,user);
 		daoProduct.update(product);
 
 	}

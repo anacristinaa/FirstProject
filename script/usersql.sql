@@ -36,8 +36,7 @@ INSERT INTO users( user_id,username,password,enabled)
 VALUES (2,'ana','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC', true);
 INSERT INTO users( user_id,username,password,enabled)
 VALUES (3,'sorina','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC', true);
-INSERT INTO users( user_id,username,password,enabled) 
-VALUES	(4, 'adri','$2a$10$xWLIUPRzTV9DIjm8I.oJ9.g.Hr5.VWS0ZCruBofSdMV.1Q22F1hB.',true);
+
 
 
 INSERT INTO user_roles (user_id, role)
@@ -46,8 +45,7 @@ INSERT INTO user_roles (user_id, role)
 VALUES (2, 'ROLE_USER');
 INSERT INTO user_roles (user_id, role)
 VALUES (3, 'ROLE_USER');
-INSERT INTO user_roles (user_id, role)
-VALUES (4, 'ROLE_USER');
+
 
 
 INSERT INTO products(product_id,name,description,price,user_id)
@@ -55,7 +53,7 @@ VALUES (1,'HTC M8','smartphone',1800,2);
 INSERT INTO products(product_id,name,description,price,user_id)
 VALUES (2,'HTC M8','smartphone',1600,3);
 INSERT INTO products(product_id,name,description,price,user_id)
-VALUES (3,'HTC M9','smartphone',2100,4);
+VALUES (3,'HTC M9','smartphone',2100,3);
 INSERT INTO products(product_id,name,description,price,user_id)
 VALUES (4,'HTC A9','smartphone',2400,2);
 INSERT INTO products(product_id,name,description,price,user_id)

@@ -20,7 +20,7 @@
 	<div class="reguser">
 	<center>
 		<h1>&nbsp; &nbsp; Register</h1>
-		<form:form action="register" method="post" modelAttribute="user">
+		<form:form action="register" method="post" modelAttribute="userDTO">
 
 			<br />
          	<p style="font-size:130%;">	Name: &nbsp;  &nbsp;  &nbsp; <input type="text" name="username">

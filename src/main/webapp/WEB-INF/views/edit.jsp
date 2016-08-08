@@ -25,22 +25,22 @@
 					<div class="error">${result}</div>
 				</c:if>
 			<br />
-			<form:form action="saveProduct" method="post" modelAttribute="product">
+			<form:form action="saveProduct" method="post" modelAttribute="productDTO">
 			
                 Id: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input
-					type="text" name="product_id"  value="${product.product_id} " readonly>
+					type="text" name="product_id"  value="${productDTO.getProduct_id()} " readonly>
 				<br />
 				<br />
          		Name: &nbsp; &nbsp;  &nbsp; &nbsp; <input type="text"
-					name="name" value=" ${product.getName() }">
+					name="name" value=" ${productDTO.getName() }">
 				<br />
 				<br />
          		Description:  <input type="text" name="description"
-					value=" ${product.getDescription() }">
+					value=" ${productDTO.getDescription() }">
 				<br />
 				<br />
          		Price: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"
-					name="price" value=" ${product.getPrice() }">
+					name="price" value=" ${productDTO.getPrice() }">
 				<br />
 				<br />
 				<%-- Id user: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"

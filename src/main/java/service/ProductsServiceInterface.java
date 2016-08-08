@@ -1,13 +1,12 @@
 package service;
 
-import any.artsoft.model.Product;
+import any.artsoft.dto.ProductDTO;
 
 public interface ProductsServiceInterface {
 	
-	public void addProduct(Product product, String username);
-//	public void insertProduct(Product product,String username);
-	public Product getProductById(int product_id);
-	public void updateProduct(Product product, String username);
+	public void addProduct(ProductDTO product, String username);
+	public ProductDTO getProductById(int product_id);
+	public void updateProduct(ProductDTO product, String username);
 	public void deleteProduct(int product_id, String username);
 
 }

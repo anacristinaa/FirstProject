@@ -15,7 +15,7 @@ import any.artsoft.model.User;
 
 @SuppressWarnings("deprecation")
 @Transactional(readOnly=true)
-@Repository
+@Repository("daoProduct")
 public class ProductsDaoImpl implements ProductsDaoInterface {
 
 	@Autowired
@@ -33,7 +33,6 @@ public class ProductsDaoImpl implements ProductsDaoInterface {
 		product.setDescription(description);
 		product.setPrice(price);
 		product.setUser(user);
-
 		Session session =  this.getSession();
 		session.beginTransaction();
 		session.save(product);
@@ -52,7 +51,6 @@ public class ProductsDaoImpl implements ProductsDaoInterface {
 		Query<Product> query = session.createQuery(SQL_QUERY);
 		query.setParameter(0, product_id);
 		Product product = query.uniqueResult();
-		System.out.println("Get product: " + product.toString());
 		session.getTransaction().commit();
 		session.close();
 		return product;

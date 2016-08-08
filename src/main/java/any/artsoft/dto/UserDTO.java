@@ -1,34 +1,30 @@
-package any.artsoft.model;
+package any.artsoft.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import any.artsoft.model.Product;
 
-@SuppressWarnings("serial")
-@Entity
-@Table(name = "users")
-public class User implements Serializable {
+public class UserDTO implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	private static final long serialVersionUID = 1L;
+	
 	private int user_id;
-	
-	@Column(name = "username")
 	private String username;
-	
-	@Column
 	private String password;
-	
-	@Column
 	private boolean enabled;
-	
-	@Column
 	private Date lastaction;
-
-	@OneToMany(mappedBy = "user")
+	
 	private List<Product> products;
+	
+	public UserDTO(){
+		
+	}
+	
+	public UserDTO(int id,String name,String pass,Date date){
+		
+	}
 
 	public int getUser_id() {
 		return user_id;
@@ -53,7 +49,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -69,7 +65,7 @@ public class User implements Serializable {
 	public void setLastaction(Date lastaction) {
 		this.lastaction = lastaction;
 	}
-
+	
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -79,7 +75,7 @@ public class User implements Serializable {
 	}
 
 	public String toString() {
-		return "User: " + this.getUser_id() + " " + this.getUsername() + " " + this.getLastaction() +
-				" E: " + this.isEnabled() + " " + this.getPassword();
+		return " U: " + this.getUser_id() + " " + this.getUsername() + " " + this.getLastaction();
 	}
+
 }
