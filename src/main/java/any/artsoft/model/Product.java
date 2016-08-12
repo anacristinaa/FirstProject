@@ -1,7 +1,10 @@
 package any.artsoft.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import any.artsoft.dto.UserDTO;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,6 +27,14 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	public Product(){
+		
+	}
+	
+	public Product(int id,String user,String descr,int p,UserDTO u){
+		
+	}
 	
 	public int getProduct_id() {
 		return product_id;

@@ -35,7 +35,7 @@ VALUES (1,'anny','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC',
 INSERT INTO users( user_id,username,password,enabled)
 VALUES (2,'ana','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC', true);
 INSERT INTO users( user_id,username,password,enabled)
-VALUES (3,'sorina','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC', true);
+VALUES (3,'adina','$2a$04$KNTAgYb31vahkarZDAPHlulkPLU0Tf/hg7eu1hoYZDM7COxNFPonC', true);
 
 
 
@@ -58,4 +58,6 @@ INSERT INTO products(product_id,name,description,price,user_id)
 VALUES (4,'HTC A9','smartphone',2400,2);
 INSERT INTO products(product_id,name,description,price,user_id)
 VALUES (5,'Iphone 6s','smartphone',3600,1);
+INSERT INTO products(product_id,name,description,price,user_id)
+VALUES (6,'Iphone 6s','smartphone',3300,1);
 

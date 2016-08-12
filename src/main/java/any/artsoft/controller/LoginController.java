@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import any.artsoft.dto.ProductDTO;
 import any.artsoft.dto.UserDTO;
 import service.UsersServiceImpl;
@@ -102,15 +101,20 @@ public class LoginController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView registerUserPage(@ModelAttribute UserDTO userDTO) {
 
-		try {
-			userService.registerUser(userDTO.getUsername(), userDTO.getPassword());
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-
-		}
-
 		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:/");
+		if(userService.validatePassword(userDTO.getPassword())){
+			try {
+				userService.registerUser(userDTO.getUsername(), userDTO.getPassword());
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+
+			}
+			model.setViewName("redirect:/");
+		}else{
+			String error = "Password null or shorter than 5.";
+			model.addObject("error",error);
+		}
+					
 		return model;
 
 	}

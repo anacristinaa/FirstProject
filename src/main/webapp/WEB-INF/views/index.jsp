@@ -8,13 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- bootstrap resources -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
-<script type="text/javascript" src="bootstrap/css/bootstrap.min.js"></script>
 <title>Index</title>
-
 </head>
 <body
 	background="<c:url value="https://shareonline.in/wp-content/uploads/2016/06/nature-flowers-nature-flowers-00397708-ozcqbX.jpg" />">
@@ -32,9 +28,12 @@
 			<a href="register"><button type="button"
 					class="btn btn-default btn-lg active">Register</button> </a>
 		</div>
-
+		
 	</div>
-
+	
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

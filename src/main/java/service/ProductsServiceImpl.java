@@ -25,11 +25,9 @@ public class ProductsServiceImpl implements ProductsServiceInterface {
 	@Transactional(rollbackFor = Exception.class)
 	public void addProduct(ProductDTO productDTO, String username) {
 
-		System.out.println("ProductDTO in add: " + productDTO.toString());
 		User user = daoUser.getUserByUsername(username);
 		daoUser.updateLastAction(user);
 		Product product = ConvertModelToDto.convertDtoToProduct(productDTO,user);
-		System.out.println("Product converted in add: " + product.toString());
 		daoProduct.create(product.getName(), product.getDescription(), product.getPrice(), user);
 
 	}

@@ -55,18 +55,30 @@ public class UsersServiceImpl implements UsersServiceInterface {
 		
 		User user = daoUser.getUserByUsername(username);
 		UserDTO userDTO = ConvertModelToDto.convertUserToDto(user);
-		System.out.println("Get userDTO: " + userDTO.toString());
 		return userDTO;
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void registerUser(String username,String password) {
-				
+					
 			User regUser = daoUser.register(username,password);
-			System.out.println("Registered User: " + regUser.toString());
 			daoUser.registerUserRole(regUser);
 		
 	}
+	
+	
+	public boolean validatePassword(String pass1){
+		
+		Boolean ok = true;
+		if(pass1 == null || pass1.length() < 5){
+				ok = false;
+		}
+		
+		return ok;
+		
+	}
+	
+	
 
 }

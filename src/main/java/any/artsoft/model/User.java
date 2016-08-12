@@ -27,8 +27,16 @@ public class User implements Serializable {
 	@Column
 	private Date lastaction;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Product> products;
+	
+	public User(){
+		
+	}
+
+	public User(int id,String name,String pass,Date date){
+		
+	}
 
 	public int getUser_id() {
 		return user_id;

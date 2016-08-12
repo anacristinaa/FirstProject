@@ -90,7 +90,8 @@ dfn {
 	background-color: rgba(100, 200, 160, 0.5);
 	/* border-radius: 20px;
 	width: 400px; */
-	padding: 20px;
+	padding-left:38%;
+	padding-top:2%;
 	height: 300px;
 	margin: auto;
 	margin-top: 10%;
@@ -100,7 +101,8 @@ dfn {
 	border-left: 2px solid black;
 	border-right: 2px solid black;
 	width: 400px; 
-	padding:30px;
+	padding-left: 38%;
+	padding-top: 2%;
 	height: 230px;
 	margin: auto;
 
@@ -108,7 +110,8 @@ dfn {
 
 .editpr{
 	background-color: rgba(100, 200, 160, 0.5);
-	padding: 12px;
+	padding-top: 3%;
+	padding-left:38%;
 	/* border-radius: 20px;
 	width: 400px; */
 	height: 380px;
@@ -118,7 +121,8 @@ dfn {
 
 .addpr{
 	background-color: rgba(100, 200, 160, 0.5);
-	padding: 30px;
+	padding-left: 38%;
+	padding-top:3%;
 	/* border-radius: 20px;
 	width: 380px; */
 	height: 370px;
@@ -237,6 +241,122 @@ p.person {
 .table1 tr td:nth-child(5) {
 	text-align: center;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 15%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.cancel{
+	color: #000040;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#del{
+	color: #800000;
+    float: left;
+    padding-right:5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* The Modal (background) */
+.clsmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 15%; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.emodal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 55%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+
+
+/* The Close Button */
+.closee {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closee:hover,
+.closee:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.emodal-header {
+    padding: 2px 16px;
+    background-color: #46b1e6;
+    color: white;
+}
+
+.emodal-body {
+	heigth: 480px;
+	padding:10px;
+	text-align:center;
+}
+
+.emodal-footer {
+    padding: 2px 16px;
+    heigth:80px;
+    background-color: #46b1e6;
+    color: white;
+}
+
 
 h1 {
 	margin: .67em 0;

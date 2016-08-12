@@ -7,11 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap resources -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
-<script type="text/javascript" src="bootstrap/css/bootstrap.min.js"></script>
 <title>Register page</title>
 </head>
 <body
@@ -30,9 +27,14 @@
 			<br />
 			<input type="submit" class="btn btn-default btn-lg active" value="Register" />
 			<br />
-
 		</form:form>
+			<c:if test="${not empty error}">
+				<div class="error" style="color:red; font-size:111%">${error}</div>
+			</c:if>
+		
 		</center>
 	</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </html>
